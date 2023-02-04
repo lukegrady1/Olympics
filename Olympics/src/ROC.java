@@ -1,30 +1,31 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 public class ROC {
 
+    @Getter @Setter
     private String name;
+    @Getter @Setter
     private List<NOC> NOCs;
 
-    private ROC(String name, List<NOC> NOCs){
-        name = this.name;
-        NOCs = this.NOCs;
+    ROC(String name, List<NOC> NOCs){
+        this.name = name;
+        this.NOCs = NOCs;
     }
-     String getName(){
-        return name;
-    }
-     void setName(String newName){
-        name = newName;
 
-    }
-     List<NOC> getNOCs(){
-        return NOCs;
-    }
-     void setNOCs(List<NOC> newNOCs){
-        NOCs = newNOCs;
-    }
      int countNSFs(){
-        return 0;
+        int count = 0;
+        for (NOC noc : NOCs) {
+    count = count + noc.countNSFs();
+         }
+         return count;
     }
      int countPlayersInNOCNSFs(){
-        return 0;
+        int count = 0;
+        for(NOC noc : NOCs){
+            count = count + noc.countPlayersInNSFs();
+        }
+        return count;
     }
 }
